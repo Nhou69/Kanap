@@ -19,5 +19,5 @@ fetch(newUrl)
 .then((data) => console.log(data))
 .catch(error => console.error(error))
 
-// 4 . Remplacer les données statiques par le résultat du fetch
+// 4 . Remplacer les données statiques par le résultat du fetch 
 const itemsImage = document.getElementsByClassName('item__img')
