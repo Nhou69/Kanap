@@ -9,7 +9,7 @@ fetch(url)
         itemsTag.innerHTML += `
         <a href="./product.html?id=${ product._id }">
             <article>
-              <img src="${ product.imageUrl }" alt="${ product.atlText}">
+              <img src="${ product.imageUrl }" alt="${ product.atlTxt}">
               <h3 class="productName">${ product.name }</h3>
               <p class="productDescription">${ product.description }</p>
             </article>
