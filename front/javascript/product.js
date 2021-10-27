@@ -24,7 +24,6 @@ let product;
 fetch(newUrl)
     .then(reponse => reponse.json())
     .then(content => {
-        console.log(content)
         product = content
         let name = content.name
         let description = content.description
@@ -62,26 +61,31 @@ addToCartButton.addEventListener("click", function() {
     } else {
     product.colors = selectedColor
     }
+    /*Condition des couleurs, si la valeur de couleur est vide"" alors on retourne une erreur*/
+
     const quantityProducts = document.getElementById('quantity')
     if (quantityProducts.value === '0'){
         alert("Veuillez définir le nombre d'article !")
         return
     }
+    /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
 
     const selectedProduct = {...product, quantity: parseInt(quantityProducts.value) }
-        /*{id: product.id, description: product.description, price: product.price, ..., quantity: quantityProducts.value}*/
+        /* le ...product correspond à {id: product.id, description: product.description, price: product.price, etc., quantity: quantityProducts.value}*/
     
-    const products = JSON.parse(localStorage.getItem('products')) || [];
+    let productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];
+    /*product = key du du local storage */
 
     //On vérifie si le produit est déjà dans le panier ==> si oui on incrémente la quantité sinon on l'ajoute
-    const foundProduct = products.find(element => element._id === selectedProduct._id)
-    const foundColor = products.find(colorValue => colorValue.colors === selectedProduct.colors)
+    const foundProduct = productsInLocalStorage.find(element => element._id === selectedProduct._id)
+    const foundColor = productsInLocalStorage.find(colorValue => colorValue.colors === selectedProduct.colors)
     if (foundProduct && foundColor) {
         foundProduct.quantity += parseInt(quantityProducts.value)
     } else {
-        products.push(selectedProduct)
+        productsInLocalStorage.push(selectedProduct)
     }
-    localStorage.setItem('products', JSON.stringify(products));
+    localStorage.setItem('products', JSON.stringify(productsInLocalStorage))
 
-    window.location.reload();
+    window.location.reload()
+
 })
