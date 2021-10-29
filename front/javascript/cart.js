@@ -36,26 +36,18 @@ cartContent.innerHTML = emptyCart
     let totalPrice = product.price * product.quantity
     cartQuantity.innerText = totalQuantity
     cartTotalPrice.innerText = totalPrice /10
-
-    let btnDelete = document.getElementById(product._id)
-    document.addEventListener('click',function(e){
-    if(e.target && e.target.id== product._id && e.target.dataset.colors == product.colors){
-        //do something
-        console.log(product.colors)
-        }
-      });
     }
 }
-/*
+
+let btnDelete = document.getElementsByClassName('deleteItem') [0]
+
 btnDelete.addEventListener("click", function (e){
     const id = e.target.id;
-    console.log(id)
-    return
     const colors = e.target.dataset.colors
     const productToDelete = productsInLocalStorage.find(element => element._id === id && element.colors === colors)
     const remainingProducts = productsInLocalStorage.filter(element => element !== productToDelete)
 
     localStorage.setItem('products', JSON.stringify(remainingProducts))
     window.location.reload()
-})
-*/
+
+    })
