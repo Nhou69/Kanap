@@ -39,15 +39,16 @@ cartContent.innerHTML = emptyCart
     }
 }
 
-let btnDelete = document.getElementsByClassName('deleteItem') [0]
 
+for(let i = 0; i < productsInLocalStorage.length; i++){
+let btnDelete = document.getElementsByClassName('deleteItem') [i]
 btnDelete.addEventListener("click", function (e){
-    const id = e.target.id;
-    const colors = e.target.dataset.colors
-    const productToDelete = productsInLocalStorage.find(element => element._id === id && element.colors === colors)
-    const remainingProducts = productsInLocalStorage.filter(element => element !== productToDelete)
+  const id = e.target.id
+  const colors = e.target.dataset.colors
+  const productToDelete = productsInLocalStorage.find(element => element._id === id && element.colors ==colors)
+  const remainingProducts = productsInLocalStorage.filter(element => element !== productToDelete)
 
-    localStorage.setItem('products', JSON.stringify(remainingProducts))
-    window.location.reload()
-
-    })
+  localStorage.setItem('products', JSON.stringify(remainingProducts))
+  window.location.reload()
+  })
+}
