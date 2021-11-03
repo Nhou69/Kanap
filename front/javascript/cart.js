@@ -39,7 +39,7 @@ let btnDelete = document.getElementsByClassName('deleteItem') [i]
 btnDelete.addEventListener("click", function (e){
   const id = e.target.id
   const colors = e.target.dataset.colors
-  const productToDelete = productsInLocalStorage.find(element => element._id === id && element.colors ==colors)
+  const productToDelete = productsInLocalStorage.find(element => element._id === id && element.colors == colors)
   const remainingProducts = productsInLocalStorage.filter(element => element !== productToDelete)
 
   localStorage.setItem('products', JSON.stringify(remainingProducts))
@@ -47,7 +47,26 @@ btnDelete.addEventListener("click", function (e){
   })
 }
 
-/* Calcul quantité et produit */
+/* retirer ou ajouter un produit */
+
+for(let i = 0; i < productsInLocalStorage.length; i++){
+  let productQuantity = document.getElementsByClassName('itemQuantity') [i]
+  console.log(productQuantity.value)
+
+  /*productQuantity.value.addEventListener('change', function(e){
+      const foundProduct = productsInLocalStorage.find(element => element._id === selectedProduct._id)
+      const foundColor = productsInLocalStorage.find(colorValue => colorValue.colors === selectedProduct.colors)
+      if (foundProduct && foundColor) {
+          foundProduct.quantity += parseInt(quantityProducts.value)
+      } else {
+          productsInLocalStorage.push(selectedProduct)
+      }*/
+      //localStorage.setItem('products', JSON.stringify(productsInLocalStorage))
+
+      //window.location.reload()
+}
+
+/* total quantité produit et total prix */
 const cartQuantity = document.getElementById("totalQuantity")
 const cartTotalPrice = document.getElementById("totalPrice")
 let totalQuantityProduct = 0
