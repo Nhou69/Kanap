@@ -60,3 +60,82 @@ cartQuantity.innerText = totalQuantityProduct
 cartTotalPrice.innerText = totalPriceProduct /10
 
 /* Expression régulière du formulaire */
+/*Nom et Prénom */
+const form = document.getElementsByClassName('cart__order__form') [0]
+form.firstName.addEventListener('change', function(){
+  validName(this)
+})
+form.lastName.addEventListener('change', function(){
+  validName(this)
+})
+
+const validName = function (inputName) {
+  let nameRegExp = new RegExp("^[^- ][a-zA-Z '\-àâäéèêëïîôöùûü]*[^- ]$", "g")
+  let testName = nameRegExp.test(inputName.value);
+  if (testName) {
+    inputName.nextElementSibling.innerHTML = "Validé"
+    return true
+  } else {
+    inputName.nextElementSibling.innerHTML = "Saisissez votre prénom ou votre nom"
+    return false
+  }
+}
+
+/*adresse */
+form.address.addEventListener('change', function(){
+  validAddress(this)
+})
+
+const validAddress = function (inputAdress) {
+  let addressRegExp = new RegExp("^[0-9]{1,4} [^- ][a-zA-Z '\-àâäéèêëïîôöùûü]*[^- ]$", "g")
+  let testAdress = addressRegExp.test(inputAdress.value)
+  if (testAdress) {
+    inputAdress.nextElementSibling.innerHTML = "Validé"
+    return true
+  } else {
+    inputAdress.nextElementSibling.innerHTML = "Saisissez votre adresse"
+    return false
+  }
+}
+
+/*Ville*/
+form.city.addEventListener('change', function(){
+  validCity(this)
+})
+
+const validCity = function (inputCity) {
+  let cityRegExp = new RegExp("^[^- ][a-zA-Z '\-àâäéèêëïîôöùûü]*[^- ]$", "g")
+  let testCity = cityRegExp.test(inputCity.value)
+  if (testCity) {
+    inputCity.nextElementSibling.innerHTML = "Validé"
+    return true
+  } else {
+    inputCity.nextElementSibling.innerHTML = "Saisissez votre ville"
+    return false
+  }
+}
+
+/*Email*/
+form.email.addEventListener("change", function () {
+  validEmail(this);
+})
+
+const validEmail = function (inputEmail) {
+  let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$","g")
+  let testEmail = emailRegExp.test(inputEmail.value)
+  if (testEmail) {
+    inputEmail.nextElementSibling.innerHTML = "Validé"
+    return true
+  } else {
+    inputEmail.nextElementSibling.innerHTML = "Saisissez votre adresse mail complète"
+    return false
+  }
+}
+
+form.addEventListener('submit', function(e){
+  if (validName(form.firstName) && validName(form.lastName) && validAddress(form.address) && validCity(form.city) && validEmail(form.email)){
+    form.submit()
+  } else{
+    e.preventDefault()
+  }
+})
