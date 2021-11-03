@@ -2,8 +2,6 @@
 let productsInLocalStorage = JSON.parse(localStorage.getItem('products'))
 console.log(productsInLocalStorage)
 const cartContent = document.getElementById('cart__items')
-const cartQuantity = document.getElementById("totalQuantity")
-const cartTotalPrice = document.getElementById("totalPrice")
 
 if (productsInLocalStorage === null || productsInLocalStorage == 0 ){
 const emptyCart = `<div>Le panier est vide</div>`
@@ -32,14 +30,10 @@ cartContent.innerHTML = emptyCart
                 </div>
               </article>
         `
-    let totalQuantity = product.quantity
-    let totalPrice = product.price * product.quantity
-    cartQuantity.innerText = totalQuantity
-    cartTotalPrice.innerText = totalPrice /10
     }
 }
 
-
+/* suppression d'un article */
 for(let i = 0; i < productsInLocalStorage.length; i++){
 let btnDelete = document.getElementsByClassName('deleteItem') [i]
 btnDelete.addEventListener("click", function (e){
@@ -52,3 +46,17 @@ btnDelete.addEventListener("click", function (e){
   window.location.reload()
   })
 }
+
+/* Calcul quantité et produit */
+const cartQuantity = document.getElementById("totalQuantity")
+const cartTotalPrice = document.getElementById("totalPrice")
+let totalQuantityProduct = 0
+let totalPriceProduct = 0
+for(product of productsInLocalStorage){
+  totalQuantityProduct = totalQuantityProduct + product.quantity
+  totalPriceProduct = totalPriceProduct + product.quantity * product.price
+}
+cartQuantity.innerText = totalQuantityProduct
+cartTotalPrice.innerText = totalPriceProduct /10
+
+/* Expression régulière du formulaire */
