@@ -151,6 +151,7 @@ const validEmail = function (inputEmail) {
   }
 }
 
+/* envoi du formulaire */
 form.addEventListener('submit', function(e){
   if (validName(form.firstName) && validName(form.lastName) && validAddress(form.address) && validCity(form.city) && validEmail(form.email)){
     form.submit()
