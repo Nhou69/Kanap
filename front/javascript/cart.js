@@ -158,21 +158,54 @@ const validEmail = function(inputEmail) {
 form.addEventListener('submit', function(e) {
     if (validName(form.firstName) && validName(form.lastName) && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
         form.submit()
+        makeOrder()
     } else {
         e.preventDefault()
+        alert("Remplissez correctement le formulaire!");
     }
 })
 
+const sendOrderToBackEnd = (theOrder) => {
+    fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/JSON",
+      },
+      body: JSON.stringify(theOrder),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data.orderId);
+        const orderId = data.orderId;
+        localStorage.setItem("orderId", orderId);
+  
+        //Envoi de l'utilisateur vers la page de confirmation en supprimant le localStorage
+        window.location.href = "confirmation.html" + "?" + "name" + "=" + orderId;
+        localStorage.clear();
+      });
+  };
+
 function makeOrder() {
     {
-        contact: {
-            firstName: 'ibrahima',
-            lastName: 'ciss',
-            address: 'House 71 - Cherif Macky Sall City - Guediawaye - Dakar',
-            city: 'dakar',
-            email: 'bionik6@gmail.com'
+        const contact = {
+            firstName: form.firstName.value,
+            lastName: form.lastName.value,
+            address: form.address.value,
+            city: form.city.value,
+            email: form.email.value,
         }
-        products: ['43kjlfjdl3l2kjfllsd', '21oikjfldkslajkl', '32lkjlfkjslkjfsd']
+        const products = []
+        for (product of productsInLocalStorage) {
+                const productId = product._id
+                products.push(productId)
+        }
+        const theOrder ={
+            contact,
+            products
+        }
+        localStorage.setItem("products", JSON.stringify(theOrder))
+        sendOrderToBackEnd(theOrder)
     }
-
 }
