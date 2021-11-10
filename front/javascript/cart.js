@@ -57,7 +57,6 @@ for (let i = 0; i < productsInLocalStorage.length; i++) {
         const productId = item.dataset.id;
         const productColors = item.dataset.colors;
         const foundProduct = productsInLocalStorage.find(element => element._id === productId && element.colors === productColors)
-        console.log(foundProduct);
         foundProduct.quantity = productQuantity.value;
         localStorage.setItem('products', JSON.stringify(productsInLocalStorage));
         calculateTotalPriceProducts();
