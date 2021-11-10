@@ -1,12 +1,10 @@
-//Récupération du numéro de commande en passant par l'URL
-//Déclaration de la constante url
+//On  récupère le numéro de commande via l'URL //même chose que dans product.js
 const urlConfirmation = new URL(window.location.href);
 //Fonction pour récupérer l'orderId de l'url
-const getConfirmationId = () => {
+const getId = () => {
     console.log(urlConfirmation)
-    const params = urlConfirmation.searchParams
-    const orderConfirm = params.get('name')
-    console.log(orderConfirm)
-    document.getElementById('orderId').innerHTML = orderConfirm
+    const getConfirmationId = urlConfirmation.searchParams.get("name")
+    console.log(getConfirmationId)
+    document.getElementById('orderId').innerHTML = getConfirmationId
 }
-getConfirmationId();
+getId();

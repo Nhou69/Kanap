@@ -83,6 +83,7 @@ calculateTotalPriceProducts()
 /* Expression régulière du formulaire */
 /*Nom et Prénom */
 const form = document.getElementsByClassName('cart__order__form')[0]
+
 form.firstName.addEventListener('change', function() {
     validName(this)
 })
@@ -95,9 +96,11 @@ const validName = function(inputName) {
     let testName = nameRegExp.test(inputName.value);
     if (testName) {
         inputName.nextElementSibling.innerHTML = "Validé"
+        inputName.nextElementSibling.style.color = "green"
         return true
     } else {
         inputName.nextElementSibling.innerHTML = "Saisissez votre prénom ou votre nom"
+        inputName.nextElementSibling.style.color = "red"
         return false
     }
 }
@@ -112,9 +115,11 @@ const validAddress = function(inputAdress) {
     let testAdress = addressRegExp.test(inputAdress.value)
     if (testAdress) {
         inputAdress.nextElementSibling.innerHTML = "Validé"
+        inputAdress.nextElementSibling.style.color = "green"
         return true
     } else {
         inputAdress.nextElementSibling.innerHTML = "Saisissez votre adresse"
+        inputAdress.nextElementSibling.style.color = "red"
         return false
     }
 }
@@ -129,9 +134,11 @@ const validCity = function(inputCity) {
     let testCity = cityRegExp.test(inputCity.value)
     if (testCity) {
         inputCity.nextElementSibling.innerHTML = "Validé"
+        inputCity.nextElementSibling.style.color = "green"
         return true
     } else {
         inputCity.nextElementSibling.innerHTML = "Saisissez votre ville"
+        inputCity.nextElementSibling.style.color = "red"
         return false
     }
 }
@@ -146,9 +153,11 @@ const validEmail = function(inputEmail) {
     let testEmail = emailRegExp.test(inputEmail.value)
     if (testEmail) {
         inputEmail.nextElementSibling.innerHTML = "Validé"
+        inputEmail.nextElementSibling.style.color = "green"
         return true
     } else {
         inputEmail.nextElementSibling.innerHTML = "Saisissez votre adresse mail complète"
+        inputEmail.nextElementSibling.style.color = "red"
         return false
     }
 }
@@ -160,7 +169,7 @@ form.addEventListener('submit', function(e) {
         makeOrder()
     } else {
         e.preventDefault()
-        alert("Remplissez correctement le formulaire!");
+        alert("Veuillez remplir le formulaire correctement s'il vous plait !");
     }
 })
 
