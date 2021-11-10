@@ -81,11 +81,12 @@ addToCartButton.addEventListener("click", function() {
     const foundColor = productsInLocalStorage.find(colorValue => colorValue.colors === selectedProduct.colors)
     if (foundProduct && foundColor) {
         foundProduct.quantity += parseInt(quantityProducts.value)
+        alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
     } else {
         productsInLocalStorage.push(selectedProduct)
+        alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
     }
     localStorage.setItem('products', JSON.stringify(productsInLocalStorage))
 
     window.location.reload()
-
 })

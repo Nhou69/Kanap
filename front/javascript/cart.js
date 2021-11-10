@@ -32,7 +32,6 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
         `
     }
 }
-
 /* suppression d'un article */
 for (let i = 0; i < productsInLocalStorage.length; i++) {
     let btnDelete = document.getElementsByClassName('deleteItem')[i]
@@ -44,6 +43,7 @@ for (let i = 0; i < productsInLocalStorage.length; i++) {
 
         localStorage.setItem('products', JSON.stringify(remainingProducts))
         window.location.reload()
+        alert('Vous avez supprimé : ' + product.quantity +'x ' + product.name + ' ' + product.colors)
     })
 }
 
