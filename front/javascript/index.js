@@ -2,11 +2,11 @@ const url = "http://localhost:3000/api/products/"
 const itemsTag = document.getElementById("items")
 
 fetch(url)
-.then(reponse => reponse.json())
-.then(data => {
-    for(product of data) {
-        console.log(product)
-        itemsTag.innerHTML += `
+    .then(reponse => reponse.json())
+    .then(data => {
+        for (product of data) {
+            console.log(product)
+            itemsTag.innerHTML += `
         <a href="./product.html?id=${ product._id }">
             <article>
               <img src="${ product.imageUrl }" alt="${ product.atlTxt}">
@@ -15,12 +15,15 @@ fetch(url)
             </article>
           </a>
         `
-    }
-})
-.catch(error => console.error(error))
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        itemsTag.innerHTML = "Erreur de connexion au serveur";
+    })
 
 
-/*fetch(url) 
+/*fetch(url)
 .then(function(reponse) {
     return reponse.json()
 })
@@ -30,4 +33,3 @@ fetch(url)
 .catch(function(error) {
     console.error(error);
 })*/
-

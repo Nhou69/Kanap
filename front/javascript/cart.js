@@ -43,7 +43,7 @@ for (let i = 0; i < productsInLocalStorage.length; i++) {
 
         localStorage.setItem('products', JSON.stringify(remainingProducts))
         window.location.reload()
-        alert('Vous avez supprimé : ' + product.quantity +'x ' + product.name + ' ' + product.colors)
+        alert('Vous avez supprimé : ' + product.quantity + 'x ' + product.name + ' ' + product.colors)
     })
 }
 
@@ -175,25 +175,27 @@ form.addEventListener('submit', function(e) {
 
 const sendOrderToBackEnd = (theOrder) => {
     fetch("http://localhost:3000/api/products/order", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/JSON",
-      },
-      body: JSON.stringify(theOrder),
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        console.log(data.orderId);
-        const orderId = data.orderId;
-        localStorage.setItem("orderId", orderId);
-  
-        //Envoi de l'utilisateur vers la page de confirmation en supprimant le localStorage
-        window.location.href = "confirmation.html" + "?" + "name" + "=" + orderId;
-        localStorage.clear();
-      });
-  };
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/JSON",
+            },
+            body: JSON.stringify(theOrder),
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            console.log(data);
+            console.log(data.orderId);
+            const orderId = data.orderId;
+            localStorage.setItem("orderId", orderId);
+
+            //Envoi de l'utilisateur vers la page de confirmation en supprimant le localStorage
+            window.location.href = "confirmation.html" + "?" + "name" + "=" + orderId;
+            /* localStorage.removeItem('products');
+            localStorage.removeItem('orderId'); */
+            ['products', 'orderId'].forEach(item => localStorage.removeItem(item));
+        });
+};
 
 function makeOrder() {
     {
@@ -206,14 +208,14 @@ function makeOrder() {
         }
         const products = []
         for (product of productsInLocalStorage) {
-                const productId = product._id
-                products.push(productId)
+            const productId = product._id
+            products.push(productId)
         }
-        const theOrder ={
-            contact,
-            products
-        }
-        localStorage.setItem("products", JSON.stringify(theOrder))
+        const theOrder = {
+                contact,
+                products
+            }
+            // localStorage.setItem("products", JSON.stringify(theOrder))
         sendOrderToBackEnd(theOrder)
     }
 }
