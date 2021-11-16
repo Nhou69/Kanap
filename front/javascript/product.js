@@ -63,7 +63,7 @@ function addToCart(){
         /*Condition des couleurs, si la valeur de couleur est vide"" alors on retourne une erreur*/
 
         const quantityProducts = document.getElementById('quantity')
-        if (quantityProducts.value == '0'){
+        if (quantityProducts.value == 0 || quantityProducts.value < 0){
             return alert("Veuillez définir le nombre d'article !")
         }
         /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
