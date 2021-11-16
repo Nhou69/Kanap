@@ -6,7 +6,8 @@ const cartContent = document.getElementById('cart__items')
 if (productsInLocalStorage === null || productsInLocalStorage == 0) {
     const emptyCart = `<div>Le panier est vide</div>`
     cartContent.innerHTML = emptyCart
-} else {
+}
+
     function affichProduct(){
         for (let product of productsInLocalStorage) {
             cartContent.innerHTML += `
@@ -170,10 +171,12 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
 
     /* envoi du formulaire */
     form.addEventListener('submit', function(e) {
+        console.log("submit ok")
         e.preventDefault()
         if (validName(form.firstName) && validName(form.lastName) && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
             //form.submit()
             makeOrder()
+            console.log("formulaire ok")
         } else {
             e.preventDefault()
             alert("Veuillez remplir le formulaire correctement s'il vous plait !");
@@ -189,7 +192,7 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
             })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log("back end " + data);
                 console.log(data.orderId);
                 //const orderId = data.orderId;
                 localStorage.setItem("orderId", data.orderId);
@@ -197,11 +200,6 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
                 //Envoi de l'utilisateur vers la page de confirmation
                 window.location.href = "confirmation.html" + "?" + "name" + "=" + data.orderId;
                 //console.log(window.location.href);
-                //Codes permettant de supprimer le localStorage 
-                //localStorage.removeItem('products');
-                //localStorage.removeItem('orderId'); équivalent ci dessous
-                
-                ['products', 'orderId'].forEach(item => localStorage.removeItem(item));
             });
     };
 
@@ -223,8 +221,7 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
                 contact,
                 products
             }
-
+        console.log("make order ok")
             //localStorage.setItem("products", JSON.stringify(theOrder))
             sendOrderToBackEnd(theOrder)
     }
-}

@@ -7,4 +7,9 @@ const getId = () => {
     console.log(getConfirmationId)
     document.getElementById('orderId').innerHTML = getConfirmationId
 }
-getId();
+getId()
+
+//Codes permettant lasuppression du local storage
+localStorage.removeItem('products');
+localStorage.removeItem('orderId');// équivalent ci dessous
+//['products', 'orderId'].forEach(item => localStorage.removeItem(item));
