@@ -51,42 +51,42 @@ fetch(newUrl)
     })
     .catch(error => console.error(error))
 
+function addToCart(){
+    const addToCartButton = document.getElementById('addToCart')
+    addToCartButton.addEventListener("click", function() {
+        const selectedColor = document.getElementById("colors").value
+        if (selectedColor === ""){
+            return alert("Vous n'avez pas sélectionné la couleur du canapé !")
+        } else {
+        product.colors = selectedColor
+        }
+        /*Condition des couleurs, si la valeur de couleur est vide"" alors on retourne une erreur*/
 
-const addToCartButton = document.getElementById('addToCart')
-addToCartButton.addEventListener("click", function() {
-    const selectedColor = document.getElementById("colors").value
-    if (selectedColor === ""){
-        alert("Vous n'avez pas sélectionné la couleur du canapé !")
-        return
-    } else {
-    product.colors = selectedColor
-    }
-    /*Condition des couleurs, si la valeur de couleur est vide"" alors on retourne une erreur*/
+        const quantityProducts = document.getElementById('quantity')
+        if (quantityProducts.value == '0'){
+            return alert("Veuillez définir le nombre d'article !")
+        }
+        /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
 
-    const quantityProducts = document.getElementById('quantity')
-    if (quantityProducts.value == '0'){
-        alert("Veuillez définir le nombre d'article !")
-        return
-    }
-    /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
-
-    const selectedProduct = {...product, quantity: quantityProducts.value }
+        const selectedProduct = {...product, quantity: parseInt(quantityProducts.value) }
         /* le ...product correspond à {id: product.id, description: product.description, price: product.price, etc., quantity: quantityProducts.value}*/
-    
-    let productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];
-    /*product = key du du local storage */
+        
+        let productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];
+        /*product = key du du local storage */
 
-    //On vérifie si le produit est déjà dans le panier ==> si oui on incrémente la quantité sinon on l'ajoute
-    const foundProduct = productsInLocalStorage.find(element => element._id === selectedProduct._id)
-    const foundColor = productsInLocalStorage.find(colorValue => colorValue.colors === selectedProduct.colors)
-    if (foundProduct && foundColor) {
-        foundProduct.quantity += parseInt(quantityProducts.value)
-        alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
-    } else {
-        productsInLocalStorage.push(selectedProduct)
-        alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
-    }
-    localStorage.setItem('products', JSON.stringify(productsInLocalStorage))
+        //On vérifie si le produit est déjà dans le panier ==> si oui on incrémente la quantité sinon on l'ajoute
+        const foundProduct = productsInLocalStorage.find(element => element._id === selectedProduct._id)
+        const foundColor = productsInLocalStorage.find(colorValue => colorValue.colors === selectedProduct.colors)
+        if (foundProduct && foundColor) {
+            foundProduct.quantity += parseInt(quantityProducts.value)
+            alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
+        } else {
+            productsInLocalStorage.push(selectedProduct)
+            alert(quantityProducts.value + 'x ' + selectedProduct.name + ' ' + selectedProduct.colors + ' ont été ajouté au panier !')
+        }
+        localStorage.setItem('products', JSON.stringify(productsInLocalStorage))
 
-    window.location.reload()
-})
+        window.location.reload()
+    })
+}
+addToCart()
