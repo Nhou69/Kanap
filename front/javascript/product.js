@@ -64,13 +64,13 @@ addToCartButton.addEventListener("click", function() {
     /*Condition des couleurs, si la valeur de couleur est vide"" alors on retourne une erreur*/
 
     const quantityProducts = document.getElementById('quantity')
-    if (quantityProducts.value === '0'){
+    if (quantityProducts.value == '0'){
         alert("Veuillez définir le nombre d'article !")
         return
     }
     /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
 
-    const selectedProduct = {...product, quantity: parseInt(quantityProducts.value) }
+    const selectedProduct = {...product, quantity: quantityProducts.value }
         /* le ...product correspond à {id: product.id, description: product.description, price: product.price, etc., quantity: quantityProducts.value}*/
     
     let productsInLocalStorage = JSON.parse(localStorage.getItem('products')) || [];

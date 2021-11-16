@@ -7,7 +7,7 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
     const emptyCart = `<div>Le panier est vide</div>`
     cartContent.innerHTML = emptyCart
 } else {
-    for (product of productsInLocalStorage) {
+    for (let product of productsInLocalStorage) {
         cartContent.innerHTML += `
         <article class="cart__item" data-id="${product._id}" data-colors="${product.colors}">
                 <div class="cart__item__img">
@@ -163,10 +163,12 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
 
     /* envoi du formulaire */
     form.addEventListener('submit', function(e) {
+        e.preventDefault()
         if (validName(form.firstName) && validName(form.lastName) && validAddress(form.address) && validCity(form.city) && validEmail(form.email)) {
             //form.submit()
             makeOrder()
         } else {
+            e.preventDefault()
             alert("Veuillez remplir le formulaire correctement s'il vous plait !");
         }
     })
@@ -174,26 +176,25 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
     const sendOrderToBackEnd = (theOrder) => {
         fetch("http://localhost:3000/api/products/order", {
                 method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/JSON",
-                },
                 body: JSON.stringify(theOrder),
+                headers: { "Content-type": "application/JSON"},
+
             })
-            .then((data) => data.json())
+            .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 console.log(data.orderId);
-                const orderId = data.orderId;
-                localStorage.setItem("orderId", orderId);
+                //const orderId = data.orderId;
+                localStorage.setItem("orderId", data.orderId);
 
-                //Envoi de l'utilisateur vers la page de confirmation en supprimant le localStorage
-                window.location.href = "confirmation.html" + "?" + "name" + "=" + orderId;
-                /* Codes permettant de supprimer le localStorage 
-                localStorage.removeItem('products');
-                localStorage.removeItem('orderId'); équivalent ci dessous*/
+                //Envoi de l'utilisateur vers la page de confirmation
+                window.location.href = "confirmation.html" + "?" + "name" + "=" + data.orderId;
+                //console.log(window.location.href);
+                //Codes permettant de supprimer le localStorage 
+                //localStorage.removeItem('products');
+                //localStorage.removeItem('orderId'); équivalent ci dessous
+                
                 ['products', 'orderId'].forEach(item => localStorage.removeItem(item));
-                //localStorage.clear()
             });
     };
 
@@ -211,7 +212,7 @@ if (productsInLocalStorage === null || productsInLocalStorage == 0) {
             email: form.email.value,
         }
             
-        const theOrder = {
+        let theOrder = {
                 contact,
                 products
             }
