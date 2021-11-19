@@ -67,14 +67,10 @@ function addToCart() {
     }
     /*Si la couleur est ok mais que la quantité n'est pas défini alors on stoppe la suite de l'execution*/
 
-    const selectedProduct = {
-      ...product,
-      quantity: parseInt(quantityProducts.value),
-    };
+    const selectedProduct = {...product, quantity: parseInt(quantityProducts.value)};
     /* le ...product correspond à {id: product.id, description: product.description, price: product.price, etc., quantity: quantityProducts.value}*/
 
-    let productsInLocalStorage =
-      JSON.parse(localStorage.getItem("products")) || [];
+    let productsInLocalStorage = JSON.parse(localStorage.getItem("products")) || [];
     /*products = key du du local storage */
 
     //On vérifie si le produit est déjà dans le panier ==> si oui on incrémente la quantité sinon on l'ajoute
@@ -86,24 +82,10 @@ function addToCart() {
     );
     if (foundProduct && foundColor) {
       foundProduct.quantity += parseInt(quantityProducts.value);
-      alert(
-        quantityProducts.value +
-          "x " +
-          selectedProduct.name +
-          " " +
-          selectedProduct.colors +
-          " ont été ajouté au panier !"
-      );
+      alert(quantityProducts.value + "x " + selectedProduct.name + " " + selectedProduct.colors + " ont été ajouté au panier !" );
     } else {
       productsInLocalStorage.push(selectedProduct);
-      alert(
-        quantityProducts.value +
-          "x " +
-          selectedProduct.name +
-          " " +
-          selectedProduct.colors +
-          " ont été ajouté au panier !"
-      );
+      alert(quantityProducts.value + "x " + selectedProduct.name + " " + selectedProduct.colors + " ont été ajouté au panier !");
     }
     localStorage.setItem("products", JSON.stringify(productsInLocalStorage));
 
