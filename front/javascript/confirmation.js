@@ -2,14 +2,14 @@
 const urlConfirmation = new URL(window.location.href);
 //Fonction pour récupérer l'orderId de l'url
 const getId = () => {
-    console.log(urlConfirmation)
-    const getConfirmationId = urlConfirmation.searchParams.get("name")
-    console.log(getConfirmationId)
-    document.getElementById('orderId').innerHTML = getConfirmationId
-}
-getId()
+  console.log(urlConfirmation);
+  const getConfirmationId = urlConfirmation.searchParams.get("name");
+  console.log(getConfirmationId);
+  document.getElementById("orderId").innerHTML = getConfirmationId;
+};
+getId();
 
 //Codes permettant lasuppression du local storage
-localStorage.removeItem('products');
-localStorage.removeItem('orderId');// équivalent ci dessous
+localStorage.removeItem("products");
+localStorage.removeItem("orderId"); // équivalent ci dessous
 //['products', 'orderId'].forEach(item => localStorage.removeItem(item));
