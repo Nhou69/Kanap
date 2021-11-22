@@ -19,7 +19,7 @@ fetch(url)
   })
   .catch((error) => {
     console.error(error);
-    itemsTag.innerHTML = "Erreur de connexion au serveur";
+    itemsTag.innerHTML = `<div>Erreur de connexion au serveur</div>`
   });
 
 /*fetch(url)

@@ -74,11 +74,9 @@ function addToCart() {
     /*products = key du du local storage */
 
     //On vérifie si le produit est déjà dans le panier ==> si oui on incrémente la quantité sinon on l'ajoute
-    const foundProduct = productsInLocalStorage.find((element) => element._id === selectedProduct._id);
-
-    const foundColor = productsInLocalStorage.find((colorValue) => colorValue.colors === selectedProduct.colors);
+    const foundProduct = productsInLocalStorage.find((element) => element._id === selectedProduct._id && element.colors === selectedProduct.colors);
     
-    if (foundProduct && foundColor) {
+    if (foundProduct) {
       foundProduct.quantity += parseInt(quantityProducts.value);
       alert(quantityProducts.value + "x " + selectedProduct.name + " " + selectedProduct.colors + " ont été ajouté au panier !" );
     } else {
