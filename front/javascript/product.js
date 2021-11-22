@@ -1,9 +1,11 @@
 // 1 . Récupérer l'identifiant du produit depuis l'url
 //on récupère l'ensemble de l'url:
 const UrlId = new URL(window.location.href);
+console.log(window.location.href)
 
 //on récupère juste ce qu'il y a après le nom '?id'
 let getId = UrlId.searchParams.get("id");
+console.log(UrlId.searchParams.get("id"))
 
 // 2 . Construire une nouvelle url à partir de l'identifiant du produit
 const url = `http://localhost:3000/api/products/`;
@@ -20,35 +22,43 @@ const itemDescription = document.getElementById("description");
 const itemColors = document.getElementById("colors");
 let product;
 
-fetch(newUrl)
-  .then((reponse) => reponse.json())
-  .then((content) => {
-    product = content;
-    let name = content.name;
-    let description = content.description;
-    let imageUrl = content.imageUrl;
-    let altTxt = content.altTxt;
-    let colors = content.colors;
-    let price = content.price / 10;
-    let id = content._id;
+//Fonction appel API pour afficher seulement le détail d'un produit selctionné
+showProductsInProduct()
 
-    itemImage.innerHTML = `
-            <img src="${imageUrl}" alt="${altTxt}">
-        `;
+function showProductsInProduct() {
+  fetch(newUrl)
+    .then((reponse) => reponse.json())
+    .then((content) => {
+      showProductDetail(content)
+    })
+    .catch((error) => console.error(error));
+}
 
-    itemTitle.innerText = name;
+function showProductDetail(content){
+  product = content;
+  let name = content.name;
+  let description = content.description;
+  let imageUrl = content.imageUrl;
+  let altTxt = content.altTxt;
+  let colors = content.colors;
+  let price = content.price / 10;
 
-    itemPrice.innerText = price;
+  itemImage.innerHTML = `
+          <img src="${imageUrl}" alt="${altTxt}">
+      `;
 
-    itemDescription.innerText = description;
+  itemTitle.innerText = name;
 
-    for (let color of colors) {
-      itemColors.innerHTML += `
-            <option value="${color}">${color}</option>
-            `;
-    }
-  })
-  .catch((error) => console.error(error));
+  itemPrice.innerText = price;
+
+  itemDescription.innerText = description;
+
+  for (let color of colors) {
+    itemColors.innerHTML += `
+          <option value="${color}">${color}</option>
+          `;
+  }
+}
 
 function addToCart() {
   const addToCartButton = document.getElementById("addToCart");

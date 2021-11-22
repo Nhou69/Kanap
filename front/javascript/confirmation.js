@@ -11,5 +11,4 @@ getId();
 
 //Codes permettant lasuppression du local storage
 localStorage.removeItem("products");
-localStorage.removeItem("orderId"); // équivalent ci dessous
-//['products', 'orderId'].forEach(item => localStorage.removeItem(item));
+localStorage.removeItem("orderId");
